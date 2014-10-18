@@ -1,4 +1,5 @@
 #!/bin/bash
+file $(find . -not -path '*/\.*' -type f) | grep 'line terminators'
 set -e
 python3 -m flake8 -j auto
 docs/coverage.py
