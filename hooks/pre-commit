@@ -1,5 +1,9 @@
 #!/bin/bash
-file $(find . -not -path '*/\.*' -type f) | grep 'line terminators'
 set -e
+without_eol=$(file $(find . -not -path '*/\.*' -type f) | grep 'no line terminators') || true
+echo $without_eol
+if [[ ! -z $without_eol ]]; then
+    false 
+fi
 python3 -m flake8 -j auto
 docs/coverage.py
