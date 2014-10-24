@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
-without_eol=$(file $(find . -not -path '*/\.*' -type f) | grep 'no line terminators') || true
+find_list=$(find . -not -path '*/\.*' -type f $(printf "! -name %s " $(cat .gitignore)))
+without_eol=$(file $find_list | grep 'no line terminators') || true
 echo $without_eol
 if [[ ! -z $without_eol ]]; then
     false 
